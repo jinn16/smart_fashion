@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
+
+    <meta charset="utf-8" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('js_static', filename='submitbtn.js')}}"></script>
+    <script src="{{url_for('js_static', filename='filebtn.js')}}"></script>
+    <!-- <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/submitbtn.js"></script>
+    <script src="../static/js/filebtn.js"></script> -->
+</head>
+<body>
+    <div id="container">
+        <div class="inner">
+            <p class="headline"><img src="../static/images/fashion_logo(s).png" alt=""></p>
+            <div class="controls">
+                <!-- Button -->
+                <div class="button_section">
+
+                    <form id="upload" method="post" enctype="multipart/form-data" >
+                        <div class="size01">
+                            <a class="btn01">
+                                <label for="file"><input id="file" type="file" name="file" style="display: none;">Add video</label>
+                            </a>
+                        </div>
+                        <!-- <div class="size02">
+                            <a class="btn02">
+                                <input id='outputfile' type='text' name='outputfile' maxlength="100" disabled> 
+                            </a>
+                        </div> -->
+                        <div class="size03">
+                            <div class="size03_1">
+                                <label class="btn03" for="threshold">Threshold:</label>
+                            </div>  
+                            <div class="size03_2">
+                                <input class="btn01" type="number" min="0" max="100" name="threshold" value="30">
+                            </div>
+                        </div>
+                        <div class="size04">
+                            <a class="btn01" id="submit" type="button">Analyze</a>
+                        </div>
+                        <div class="size05">
+                            <a class="btn01" id="submit" type="button">Success</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="circle_section">
+                    <div class="first container">1</div>
+                    <div class="second container">2</div>
+                    <div class="third container">3</div>
+                    <div class="fourth container">4</div>
+                </div>
+                <div class="line_section">
+                    <p class="line"></p>
+                    <p class="line"></p>
+                    <p class="line"></p>
+                </div>    
+                <!-- video -->
+                <div class="display">
+                    <div class="video_section">
+                        <video id="secVideo" controls loop >
+                        </video>
+                    </div>
+                    <div class="list_section">
+                        <p>List of Scene</p>
+                        <div class="listScene">
+
+                        </div>
+                    </div>
+                </div>
+                <span class="leftBtn"><img src="../static/images/left_arrow.png" alt=""></span>
+                <span class="rightBtn"><img src="../static/images/right_arrow.png" alt=""></span>
+
+                <!-- thumnail -->
+                <div class="wrap">
+                    <div class="lists">
+                        <div><h2>SCENE</h2></div>
+                        <div><h2>SCENE</h2></div>
+                        <div><h2>SCENE</h2></div>
+                        <div><h2>SCENE</h2></div>
+                    </div>
+                    <div id="images_container">
+                    </div>
+                </div>
+
+                
+                <!-- progress Modal -->
+                <div id="loadingBar" class="loader"></div>
+            </div>
+        </div>
+        <div class="left"></div>
+    </div>
+</body>
+</html>
