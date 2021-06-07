@@ -58,7 +58,13 @@ def pyscenedetect(file, threshold, name):
                 image_name_template = '$VIDEO_NAME-$SCENE_NUMBER',
                 output_dir=folder_name
             )
-    return folder_name
+        start_time = []
+        end_time = []
+        for scene in scene_list:
+            start, end = scene
+            start_time.append(start.get_timecode())
+            end_time.append(end.get_timecode())
+    return folder_name, start_time, end_time
 
 @app.context_processor
 def override_url_for():
@@ -107,12 +113,12 @@ def upldfile():
             updir = app.config['UPLOAD_FOLDER']
             files.save(os.path.join(updir, filename))
 
-    folder_name = pyscenedetect(filename, threshold, name)
+    folder_name, start_time, end_time = pyscenedetect(filename, threshold, name)
     file_list = os.listdir(folder_name)
     file_list_py = [file for file in file_list if file.endswith('.jpg')]
     video_list_py = [file for file in file_list if file.endswith(('mp4', 'avi', 'ogg', 'mp3', 'mov'))]
 
-    return jsonify(name = filename, scene = file_list_py, video = video_list_py)
+    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

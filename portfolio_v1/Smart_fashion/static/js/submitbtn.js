@@ -27,6 +27,9 @@ $(function submitFile() {
             video = data.video
             file_name = file.replace(/(.png|.jpg|.jpeg|.gif|.mp4|.mp3|.ogg|.avi|.mov)$/, '');
             scene_dir = '../static/scene/' + file_name + '/'
+            start_time = data.start
+            end_time = data.end
+            console.log(start_time, end_time)
 
             for (var i = 0; i < scene.length; i++) {
                 $("div#images_container").append(add_image(i));
@@ -69,7 +72,9 @@ $(function submitFile() {
             $('div#images_container').click(function(e) {
                 var id = e.target.getAttribute('id')
                 $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[id] + "' controls width=\"1300px\">");
+                console.log(start_time[id], '-', end_time[id])
             })
+
             $('.container').css("backgroundColor","#e5e5e5");
             $('.fourth').css("backgroundColor","#fca311");
     
