@@ -84,8 +84,10 @@ $(function submitFile() {
             
             const items = document.querySelector('.items');
             items.addEventListener('click', event=> {
-                var id = event.target.dataset.id
-                viewVideo(id);
+                var el = event.target.dataset.id
+                if(el){
+                    viewVideo(el);
+                }
             });
 
             $('div#images_container').mouseover(function(e) {
