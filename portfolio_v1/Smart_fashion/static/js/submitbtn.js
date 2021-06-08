@@ -92,7 +92,8 @@ $(function submitFile() {
 
             $('div#images_container').mouseover(function(e) {
                 var id = e.target.getAttribute('id')
-                document.getElementById(id).setAttribute('title', `Scene Number: ${id}` + `\n`+  start_time[id]+ '-' + end_time[id]);
+                var number = id + 1
+                document.getElementById(id).setAttribute('title', `Scene Number: ${number}` + `\n`+  start_time[id]+ '-' + end_time[id]);
             })
 
             $('.container').css("backgroundColor","#e5e5e5");
