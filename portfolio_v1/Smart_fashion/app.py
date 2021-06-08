@@ -28,7 +28,7 @@ def organize_folder(dirname, name):
     return folder_name
 
 def pyscenedetect(file, threshold, name):
-    scene_list = list(0 for i in range(0,100))
+    scene_list = list(0 for i in range(0, 100))
     while len(scene_list) > 20:
         scene_list = [None]
 
@@ -46,13 +46,17 @@ def pyscenedetect(file, threshold, name):
 
         scene_list = scene_manager.get_scene_list()
 
-        if len(scene_list) > 20:
+        if 20 < len(scene_list) <= 30:
             threshold = threshold + 10
+        elif 30< len(scene_list) <= 50:
+            threshold = threshold + 20
+        elif 50 < len(scene_list) <= 80:
+            threshold = threshold + 30
+        elif 80 < len(scene_list) <= 100:
+            threshold = threshold + 40
+        elif 100 < len(scene_list):
+            threshold = threshold + 50
         else:
-            scene_num = []
-            for i in range (1, len(scene_list)+1):
-                scene_num.append(i)
-            print(scene_num)
             video_splitter = split_video_ffmpeg([video_path], scene_list, output_file_template=folder_name +'/$VIDEO_NAME-$SCENE_NUMBER.mp4', video_name=name)
 
             save_images(
@@ -62,21 +66,22 @@ def pyscenedetect(file, threshold, name):
                 image_name_template = '$VIDEO_NAME-$SCENE_NUMBER',
                 output_dir=folder_name
             )
+
         start_time = []
         end_time = []
+        frames = []
+
         for scene in scene_list:
             start, end = scene
             start_time.append(start.get_timecode())
             end_time.append(end.get_timecode())
 
-            # 프레임 수를 배열로 받는 코드 by hsy
-            frames = []
             for i, (start, end) in enumerate(scene_list):
                 duration = end - start
                 duration.get_frames()
                 frames.append(duration.get_frames())
 
-    return folder_name, start_time, end_time, scene_num, frames
+    return folder_name, start_time, end_time, frames
 
 @app.context_processor
 def override_url_for():
@@ -115,22 +120,22 @@ def index():
 def upldfile():
     if request.method == 'POST':
         files = request.files['file']
-        threshold = request.form['threshold']
-        threshold = int(threshold)
+        threshold = int(request.form['threshold'])
 
         if files and allowed_file(files.filename):
-
             filename = secure_filename(files.filename)
             name, ext = filename.split('.')
             updir = app.config['UPLOAD_FOLDER']
             files.save(os.path.join(updir, filename))
 
-    folder_name, start_time, end_time, scene_num, frames = pyscenedetect(filename, threshold, name)
+    folder_name, start_time, end_time, frames = pyscenedetect(filename, threshold, name)
     file_list = os.listdir(folder_name)
     file_list_py = [file for file in file_list if file.endswith('.jpg')]
     video_list_py = [file for file in file_list if file.endswith(('mp4', 'avi', 'ogg', 'mp3', 'mov'))]
+    file_list_py.sort()
+    video_list_py.sort()
 
-    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, scene_num = scene_num, frame = frames)
+    return jsonify(dir_name = folder_name, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, frame = frames)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

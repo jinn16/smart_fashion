@@ -1,16 +1,20 @@
 $(function submitFile() {
     $('#submit').click(function() {
+        // 변수 및 id 값 선언
+        loadingBar = document.getElementById('loadingBar')
+        images_container = $('#images_container')
+        container = $('.container')
+        list = $('.lists>div')
+        var form_data = new FormData($('#upload')[0]);
 
-        document.getElementById('loadingBar').style.display = 'block';
-        $('.lists>div').animate({opacity:"1"},100);
-        $('.container').css("backgroundColor","#e5e5e5");
+        loadingBar.style.display = 'block';
+        images_container.empty();
+        event.preventDefault();
+
+        list.animate({opacity:"1"},100);
+        container.css("backgroundColor","#e5e5e5");
         $('.third').css("backgroundColor","#fca311");
 
-
-        $("div#images_container").empty();
-
-        event.preventDefault();
-        var form_data = new FormData($('#upload')[0]);
         $.ajax({
             type: 'POST',
             url: '/uploadajax',
@@ -18,70 +22,75 @@ $(function submitFile() {
             contentType: false,
             processData: false,
             dataType: 'json',
-
         }).done(function(data) {
-            document.getElementById('loadingBar').style.display = 'none';
 
-            file = data.name
+            loadingBar.style.display = 'none';
+
+            // json 파일 불러오기
+            file = data.dir_name
             scene = data.scene
             video = data.video
-            file_name = file.replace(/(.png|.jpg|.jpeg|.gif|.mp4|.mp3|.ogg|.avi|.mov)$/, '');
-            scene_dir = '../static/scene/' + file_name + '/'
             start_time = data.start
             end_time = data.end
-            scene_num = data.scene_num
-             // frames 추가 by hsy
             frames = data.frame
-            console.log(start_time, end_time, frames)
 
+            scene_dir = file + '/'
+
+            // image container에 사진 추가
             for (var i = 0; i < scene.length; i++) {
-                $("div#images_container").append(add_image(i));
+                images_container.append(add_image(i));
             }
 
-            // $('.lists>div').animate({opacity:"0"},100);
-            $('.lists>div').css("display","none");
+            list.css("display","none");
 
+            // 슬라이드
             var slides = document.querySelector('#images_container'),
                 slide = document.querySelectorAll('#images_container li'),
-                currentIdex = 0,
-                slideCount = slide.length+1,
                 left=document.querySelector('.leftBtn'),
                 right=document.querySelector('.rightBtn');
                 slideWidth = 310,
                 slideMargin = 15,
+                currentIdex = 0,
+                slideCount = slide.length + 1,
+                slides.style.width = (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
 
-                slides.style.width = (slideWidth + slideMargin)*slideCount -slideMargin +'px';
             function moveSlide(num) {
-                slides.style.left = -num * 330 + 'px';
+                slides.style.left = - num * (slideWidth + slideMargin) + 'px';
                 currentIdex = num;
             }
-            right.addEventListener('click', function() {
-                if(currentIdex<slideCount-3) {
 
-                    moveSlide(currentIdex+1);
+            right.addEventListener('click', function() {
+                if(currentIdex < slideCount - 3) {
+                    moveSlide(currentIdex + 1);
                 }else {
                     moveSlide(0);
                 }
             });
-
             left.addEventListener('click', function() {
-                if(currentIdex>0) {
-                    moveSlide(currentIdex-1);
+                if(currentIdex > 0) {
+                    moveSlide(currentIdex - 1);
                 }else {
-                    moveSlide(slideCount-4);
+                    moveSlide(slideCount - 4);
                 }
             });
 
-            $('div#images_container').click(function(e) {
-                var id = e.target.getAttribute('id')
-                const item = creatLines(id);
+            // image container 관련 이벤트
+            $(function() {
+                images_container.bind({
+                    click: function(e) {
+                        var id = e.target.getAttribute('id')
+                        const item = creatLines(id);
+                        viewVideo(id);
+                        items.appendChild(item);
+                        item.scrollIntoView({block:'center'});
+                    },
+                    mouseover: function(e) {
+                        var id = e.target.getAttribute('id')
+                        document.getElementById(id).setAttribute('title', `Scene Number: ${id}` + `\n`+  start_time[id]+ '-' + end_time[id]);
+                    }
+                })
+            })
 
-                viewVideo(id);
-                items.appendChild(item);
-                item.scrollIntoView({block:'center'});
-                
-            });
-            
             const items = document.querySelector('.items');
             items.addEventListener('click', event=> {
                 var el = event.target.dataset.id
@@ -90,15 +99,8 @@ $(function submitFile() {
                 }
             });
 
-            $('div#images_container').mouseover(function(e) {
-                var id = e.target.getAttribute('id')
-                var number = id + 1
-                document.getElementById(id).setAttribute('title', `Scene Number: ${number}` + `\n`+  start_time[id]+ '-' + end_time[id]);
-            })
-
-            $('.container').css("backgroundColor","#e5e5e5");
+            container.css("backgroundColor","#e5e5e5");
             $('.fourth').css("backgroundColor","#fca311");
-    
 
         }).fail(function(data){
             alert('error!');
@@ -106,28 +108,22 @@ $(function submitFile() {
     });
 });
 
-function add_image(i) {
-    var path = "<li><img id = \"" + i +"\" src ='" + scene_dir + scene[i] + "' height = \"150px\" title = \"hello\"></li>"
+function add_image(n) {
+    var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\" title = \"hello\"></li>"
     return path
 }
-
-function creatLines(id) {
+function creatLines(n) {
     const itemRow = document.createElement('li');
     itemRow.setAttribute('class','item__row');
     itemRow.innerHTML=`
-        <div class="item" data-id=${id}>
-              <span class="item__name"><p>${id}</p></span>
-              <span class="item__frame"><p>${frames[id]}</p></span>
-              <span class="item__time"><p>${start_time[id]}</p></span>
+        <div class="item" data-id=${n}>
+              <span class="item__name"><p>${n}</p></span>
+              <span class="item__frame"><p>${frames[n]}</p></span>
+              <span class="item__time"><p>${start_time[n]}</p></span>
         </div>
-        <div class="item__divider"></div>
-`
+        <div class="item__divider"></div>`
     return itemRow;
 }
-
-function viewVideo(id) {
-    $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[id] + "' controls width=\"1300px\">");
-    console.log(`scene${id}`)
-    console.log(start_time[id], '-', end_time[id])
+function viewVideo(n) {
+    $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[n] + "' controls width=\"1300px\">");
 }
-
