@@ -150,8 +150,8 @@ body, html {
     
     .loader {
     position: absolute;
-    top: 52%; /* location needs to be adjusted */
-    left: 51%; /* location needs to be adjusted */
+    top: 45%; /* location needs to be adjusted */
+    left: 46%; /* location needs to be adjusted */
     margin-left: -80px;
     margin-top: -80px;
     border: 16px solid lightgray; 
