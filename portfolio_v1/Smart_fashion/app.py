@@ -68,7 +68,15 @@ def pyscenedetect(file, threshold, name):
             start, end = scene
             start_time.append(start.get_timecode())
             end_time.append(end.get_timecode())
-    return folder_name, start_time, end_time, scene_num
+
+            # 프레임 수를 배열로 받는 코드 by hsy
+            frames = []
+            for i, (start, end) in enumerate(scene_list):
+                duration = end - start
+                duration.get_frames()
+                frames.append(duration.get_frames())
+
+    return folder_name, start_time, end_time, scene_num, frames
 
 @app.context_processor
 def override_url_for():
@@ -117,12 +125,12 @@ def upldfile():
             updir = app.config['UPLOAD_FOLDER']
             files.save(os.path.join(updir, filename))
 
-    folder_name, start_time, end_time, scene_num = pyscenedetect(filename, threshold, name)
+    folder_name, start_time, end_time, scene_num, frames = pyscenedetect(filename, threshold, name)
     file_list = os.listdir(folder_name)
     file_list_py = [file for file in file_list if file.endswith('.jpg')]
     video_list_py = [file for file in file_list if file.endswith(('mp4', 'avi', 'ogg', 'mp3', 'mov'))]
 
-    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, scene_num = scene_num)
+    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, scene_num = scene_num, frame = frames)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

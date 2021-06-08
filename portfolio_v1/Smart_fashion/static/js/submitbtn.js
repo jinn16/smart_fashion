@@ -30,7 +30,9 @@ $(function submitFile() {
             start_time = data.start
             end_time = data.end
             scene_num = data.scene_num
-            console.log(start_time, end_time)
+             // frames 추가 by hsy
+            frames = data.frame
+            console.log(start_time, end_time, frames)
 
             for (var i = 0; i < scene.length; i++) {
                 $("div#images_container").append(add_image(i));
