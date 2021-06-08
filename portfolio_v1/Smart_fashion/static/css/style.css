@@ -145,6 +145,46 @@ body, html {
     margin-left: 12px;
 
 }
+.list_section >header {
+    height: 29px;
+    padding:9px;
+    margin-top: -1px;
+    width: 95%;
+    margin-left: -1px;
+    background-color: #000000;
+    color: white;
+    border-radius: 18px 18px 0 0;
+}
+
+.items {
+    height: 545px;
+    /* background-color: #dd7859; */
+    overflow-y:auto;
+}
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px;
+}
+
+.item__row:hover:not(:nth-child(1)) {
+    color: red;
+    cursor: pointer;
+}
+
+.item__divider {
+    width: 90%;
+    height: 1px;
+    background-color: gray;
+    margin: 0 auto;
+}
+.item__name p{
+    padding-left: 15px;
+}
+.item__frame p{
+    padding-left: 30px;
+}
 
     /* =================================================progress bar */
     

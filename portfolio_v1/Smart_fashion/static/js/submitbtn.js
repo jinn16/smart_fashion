@@ -74,9 +74,19 @@ $(function submitFile() {
 
             $('div#images_container').click(function(e) {
                 var id = e.target.getAttribute('id')
-                $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[id] + "' controls width=\"1300px\">");
-                console.log(start_time[id], '-', end_time[id])
-            })
+                const item = creatLines(id);
+                
+                viewVideo(id);
+                items.appendChild(item);
+                item.scrollIntoView({block:'center'});
+                
+            });
+            
+            const items = document.querySelector('.items');
+            items.addEventListener('click', event=> {
+                var id = event.target.dataset.id
+                viewVideo(id);
+            });
 
             $('div#images_container').mouseover(function(e) {
                 var id = e.target.getAttribute('id')
@@ -96,5 +106,25 @@ $(function submitFile() {
 function add_image(i) {
     var path = "<li><img id = \"" + i +"\" src ='" + scene_dir + scene[i] + "' height = \"150px\" title = \"hello\"></li>"
     return path
+}
+
+function creatLines(id) {
+    const itemRow = document.createElement('li');
+    itemRow.setAttribute('class','item__row');
+    itemRow.innerHTML=`
+        <div class="item" data-id=${id}>
+              <span class="item__name"><p>${id}</p></span>
+              <span class="item__frame"><p>${id}</p></span>
+              <span class="item__time"><p>${start_time[id]}</p></span>
+        </div>
+        <div class="item__divider"></div>
+`
+    return itemRow;
+}
+
+function viewVideo(id) {
+    $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[id] + "' controls width=\"1300px\">");
+    console.log(`scene${id}`)
+    console.log(start_time[id], '-', end_time[id])
 }
 
