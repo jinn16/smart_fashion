@@ -75,7 +75,7 @@ $(function submitFile() {
             $('div#images_container').click(function(e) {
                 var id = e.target.getAttribute('id')
                 const item = creatLines(id);
-                
+
                 viewVideo(id);
                 items.appendChild(item);
                 item.scrollIntoView({block:'center'});
@@ -114,7 +114,7 @@ function creatLines(id) {
     itemRow.innerHTML=`
         <div class="item" data-id=${id}>
               <span class="item__name"><p>${id}</p></span>
-              <span class="item__frame"><p>${id}</p></span>
+              <span class="item__frame"><p>${frames[id]}</p></span>
               <span class="item__time"><p>${start_time[id]}</p></span>
         </div>
         <div class="item__divider"></div>
