@@ -49,6 +49,10 @@ def pyscenedetect(file, threshold, name):
         if len(scene_list) > 20:
             threshold = threshold + 10
         else:
+            scene_num = []
+            for i in range (1, len(scene_list)+1):
+                scene_num.append(i)
+            print(scene_num)
             video_splitter = split_video_ffmpeg([video_path], scene_list, output_file_template=folder_name +'/$VIDEO_NAME-$SCENE_NUMBER.mp4', video_name=name)
 
             save_images(
@@ -64,7 +68,7 @@ def pyscenedetect(file, threshold, name):
             start, end = scene
             start_time.append(start.get_timecode())
             end_time.append(end.get_timecode())
-    return folder_name, start_time, end_time
+    return folder_name, start_time, end_time, scene_num
 
 @app.context_processor
 def override_url_for():
@@ -113,12 +117,12 @@ def upldfile():
             updir = app.config['UPLOAD_FOLDER']
             files.save(os.path.join(updir, filename))
 
-    folder_name, start_time, end_time = pyscenedetect(filename, threshold, name)
+    folder_name, start_time, end_time, scene_num = pyscenedetect(filename, threshold, name)
     file_list = os.listdir(folder_name)
     file_list_py = [file for file in file_list if file.endswith('.jpg')]
     video_list_py = [file for file in file_list if file.endswith(('mp4', 'avi', 'ogg', 'mp3', 'mov'))]
 
-    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time)
+    return jsonify(name = filename, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, scene_num = scene_num)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

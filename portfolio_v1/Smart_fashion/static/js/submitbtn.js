@@ -29,6 +29,7 @@ $(function submitFile() {
             scene_dir = '../static/scene/' + file_name + '/'
             start_time = data.start
             end_time = data.end
+            scene_num = data.scene_num
             console.log(start_time, end_time)
 
             for (var i = 0; i < scene.length; i++) {
@@ -75,6 +76,11 @@ $(function submitFile() {
                 console.log(start_time[id], '-', end_time[id])
             })
 
+            $('div#images_container').mouseover(function(e) {
+                var id = e.target.getAttribute('id')
+                document.getElementById(id).setAttribute('title', start_time[id]+ '-' + end_time[id]);
+            })
+
             $('.container').css("backgroundColor","#e5e5e5");
             $('.fourth').css("backgroundColor","#fca311");
     
@@ -86,7 +92,7 @@ $(function submitFile() {
 });
 
 function add_image(i) {
-    var path = "<li><img id = \"" + i +"\" src ='" + scene_dir + scene[i] + "' height=\"150px\"></li>"
+    var path = "<li><img id = \"" + i +"\" src ='" + scene_dir + scene[i] + "' height = \"150px\" title = \"hello\"></li>"
     return path
 }
 
