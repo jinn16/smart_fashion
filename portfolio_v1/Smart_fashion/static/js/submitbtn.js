@@ -89,7 +89,6 @@ $(function submitFile() {
                         var id = e.target.getAttribute('id')
                         const item = creatLines(id);
                         viewVideo(id);
-                        items.appendChild(item);
                         item.scrollIntoView({block:'center'});
                     },
                     mouseover: function(e) {
