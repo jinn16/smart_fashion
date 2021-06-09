@@ -22,6 +22,9 @@ $(function submitFile() {
             contentType: false,
             processData: false,
             dataType: 'json',
+            success: function (data) {
+                $('.items').html(data);
+            }
         }).done(function(data) {
 
             loadingBar.style.display = 'none';
@@ -38,7 +41,12 @@ $(function submitFile() {
 
             // image container에 사진 추가
             for (var i = 0; i < scene.length; i++) {
+                const items = document.querySelector('.items')
                 images_container.append(add_image(i));
+
+                const item = creatLines(i);
+                items.appendChild(item);
+                item.scrollIntoView({block:'center'});
             }
 
             list.css("display","none");
@@ -112,6 +120,7 @@ function add_image(n) {
     var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\" title = \"hello\"></li>"
     return path
 }
+
 function creatLines(n) {
     const itemRow = document.createElement('li');
     itemRow.setAttribute('class','item__row');
@@ -124,6 +133,7 @@ function creatLines(n) {
         <div class="item__divider"></div>`
     return itemRow;
 }
+
 function viewVideo(n) {
     $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[n] + "' controls width=\"1300px\">");
 }
