@@ -18,14 +18,23 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-def organize_folder(dirname, name):
+def organize_folder(dirname):
     filenames = os.listdir(dirname)
+    full_file = []
     for filename in filenames:
-        full_filename = os.path.join(dirname, filename)
-        shutil.rmtree(full_filename)
-    folder_name = os.path.join(dirname, name)
+        full_file.append(filename)
+    random_name = "".join([random.choice(string.ascii_letters) for _ in range(10)])
+    while random_name in full_file:
+        random_name = "".join([random.choice(string.ascii_letters) for _ in range(10)])
+    folder_name = os.path.join(dirname, random_name)
     os.makedirs(folder_name)
     return folder_name
+
+    #     full_filename = os.path.join(dirname, filename)
+    #     shutil.rmtree(full_filename)
+    # folder_name = os.path.join(dirname, name)
+    # os.makedirs(folder_name)
+    # return folder_name
 
 def pyscenedetect(file, threshold, name):
     scene_list = list(0 for i in range(0, 100))
@@ -33,12 +42,11 @@ def pyscenedetect(file, threshold, name):
         scene_list = [None]
 
         scene_dir = './static/scene/'
-
+        folder_name = organize_folder(scene_dir)
         # folder_name = organize_folder(scene_dir, name)
-        random_name = "".join([random.choice(string.ascii_letters) for _ in range(10)])
-
-        folder_name = os.path.join(scene_dir, random_name)
-        os.makedirs(folder_name)
+        # random_name = "".join([random.choice(string.ascii_letters) for _ in range(10)])
+        # folder_name = os.path.join(scene_dir, random_name)
+        # os.makedirs(folder_name)
 
         video_path = os.path.join(app.config['UPLOAD_FOLDER'], file)
         video_manager = VideoManager([video_path])
