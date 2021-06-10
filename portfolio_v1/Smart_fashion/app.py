@@ -117,6 +117,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/uploadajax', methods=['POST'])
+
 def upldfile():
     if request.method == 'POST':
         files = request.files['file']
