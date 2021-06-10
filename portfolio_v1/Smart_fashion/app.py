@@ -1,6 +1,6 @@
 from flask import (Flask, request, render_template, send_from_directory, url_for, jsonify)
 from werkzeug.utils import secure_filename
-import os
+import os, random, string
 import shutil
 from scenedetect import VideoManager, SceneManager, StatsManager
 from scenedetect.detectors import ContentDetector
@@ -33,7 +33,12 @@ def pyscenedetect(file, threshold, name):
         scene_list = [None]
 
         scene_dir = './static/scene/'
-        folder_name = organize_folder(scene_dir, name)
+
+        # folder_name = organize_folder(scene_dir, name)
+        random_name = "".join([random.choice(string.ascii_letters) for _ in range(10)])
+
+        folder_name = os.path.join(scene_dir, random_name)
+        os.makedirs(folder_name)
 
         video_path = os.path.join(app.config['UPLOAD_FOLDER'], file)
         video_manager = VideoManager([video_path])
