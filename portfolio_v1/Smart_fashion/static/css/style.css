@@ -11,7 +11,7 @@ body, html {
 
 .inner {
     width: 1400px;
-    height: 1080px;
+    height: 1085px;
     background-color: #ffffff;
     margin: 0 auto;
     margin-top: 4%;
@@ -167,6 +167,11 @@ body, html {
     justify-content: space-between;
     padding: 8px 24px;
 }
+.item__fix{
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px;
+}
 
 .item__row:hover:not(:nth-child(1)) {
     color: red;
@@ -174,6 +179,12 @@ body, html {
 }
 
 .item__divider {
+    width: 90%;
+    height: 1px;
+    background-color: gray;
+    margin: 0 auto;
+}
+.item__divider__fix {
     width: 90%;
     height: 1px;
     background-color: gray;

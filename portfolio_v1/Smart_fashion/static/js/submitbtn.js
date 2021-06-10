@@ -23,7 +23,7 @@ $(function submitFile() {
             processData: false,
             dataType: 'json',
             success: function (data) {
-                $('.items').html(data);
+                $('.item__row').html(data);
             }
         }).done(function(data) {
 
