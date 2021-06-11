@@ -103,6 +103,8 @@ $(function submitFile() {
                 var el = event.target.dataset.id
                 if(el){
                     viewVideo(el);
+                    moveSlide(el);
+
                 }
             });
 
