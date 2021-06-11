@@ -31,13 +31,22 @@ body, html {
     font-weight: 550;
 }
 
-    .headline img{
-        display: block;
-        padding-right:50px;
-        margin: 0 auto;
-        height:90px;
-    }
 
+    .headline img{
+        padding-right:50px;
+        height:100px;
+        padding-top: 10px;
+    }
+    .headline h2 {
+        text-align: center;
+        color: #575553;
+        display: inline;
+        padding-left: 200px;
+        position: relative;
+        top: -30px;
+
+    }
+    
 .controls {
     text-align: center;
     height: 800px;
