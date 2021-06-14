@@ -42,11 +42,13 @@ $(function submitFile() {
             // image container에 사진 추가
             for (var i = 0; i < scene.length; i++) {
                 const items = document.querySelector('.items')
+
                 images_container.append(add_image(i));
 
                 const item = creatLines(i);
                 items.appendChild(item);
                 item.scrollIntoView({block:'center'});
+
             }
 
             list.css("display","none");
@@ -118,7 +120,8 @@ $(function submitFile() {
 });
 
 function add_image(n) {
-    var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\" title = \"hello\"></li>"
+
+    var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\" title = \"hello\">" + `<div>scene number: ${n}<br>${start_time[n]} - ${end_time[n]}<\div>` + "</li>"
     return path
 }
 
