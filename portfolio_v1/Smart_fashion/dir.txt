@@ -1,0 +1,5 @@
+* app.py
+ - L.155 ROOT_DIR
+* test.py
+ - L.46 splash_img_dir
+ - L.47 splash_json_path

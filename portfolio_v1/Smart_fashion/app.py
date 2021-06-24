@@ -1,11 +1,14 @@
 from flask import (Flask, request, render_template, send_from_directory, url_for, jsonify)
 from werkzeug.utils import secure_filename
-import os, random, string
+import os, random, string, time, cv2
 import shutil
 from scenedetect import VideoManager, SceneManager, StatsManager
 from scenedetect.detectors import ContentDetector
 from scenedetect.scene_manager import save_images
 from scenedetect.video_splitter import split_video_ffmpeg
+from test import detect_and_color_splash, DeepFashion2Config, DeepFashion2Dataset
+from lib.config import Config
+from lib.model import MaskRCNN
 
 app = Flask(__name__)
 
@@ -148,6 +151,35 @@ def upldfile():
     video_list_py = [file for file in file_list if file.endswith(('mp4', 'avi', 'ogg', 'mp3', 'mov'))]
     file_list_py.sort()
     video_list_py.sort()
+
+    ROOT_DIR = os.path.abspath("/home/chohj/portfolio/portfolio_v1/Smart_fashion/")
+    DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "log")
+    COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "weights/mask_rcnn_coco.h5")
+    t = time.time()
+    print("Logs: ", DEFAULT_LOGS_DIR)
+
+    class InferenceConfig(DeepFashion2Config):
+        GPU_COUNT = 1
+        IMAGES_PER_GPU = 1
+
+    config = InferenceConfig()
+    config.display()
+    model = MaskRCNN(mode="inference", config=config, model_dir=DEFAULT_LOGS_DIR)
+    weights_path = 'weights/epoch_1500.h5'
+    print("Loading weights ", weights_path)
+    model.load_weights(weights_path, by_name=True)
+    dataset_splash = DeepFashion2Dataset()
+    dataset_splash.load_coco(config.splash_img_dir, config.splash_json_path)
+    dataset_splash.prepare()
+    print("Images: {}\nClasses: {}".format(len(dataset_splash.image_ids), dataset_splash.class_names))
+
+    for filename in file_list_py:
+        t1 = time.time()
+        img = cv2.imread(os.path.join(folder_name, filename))
+        print(filename)
+
+        detect_and_color_splash(dataset_splash, model, image_path=filename, video_path=None, image_dir=folder_name)
+        print("Each iteration elapsed time : {}s".format(time.time() - t1))
 
     return jsonify(dir_name = folder_name, scene = file_list_py, video = video_list_py, start = start_time, end = end_time, frame = frames)
 

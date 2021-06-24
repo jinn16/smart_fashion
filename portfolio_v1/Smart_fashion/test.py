@@ -7,7 +7,7 @@ import time
 import skimage.draw
 import datetime
 
-sys.dont_write_bytecode = Tru
+sys.dont_write_bytecode = True
 import numpy as np
 import cv2
 
@@ -42,9 +42,10 @@ class DeepFashion2Config(Config):
 
     USE_MINI_MASK = True
 
-    splash_img_dir = "/home/ubuntu/datasets/deepfashion2/test/image"
-    splash_json_path = "/home/statest/smartfashion/json_files/splash.json"
-
+    # splash_img_dir = "/home/ubuntu/datasets/deepfashion2/test/image"
+    # splash_json_path = "/home/statest/smartfashion/json_files/splash.json"
+    splash_img_dir = "/home/chohj/Desktop/portfolio/portfolio_v1/Smart_fashion/test"
+    splash_json_path = "/home/chohj/Desktop/portfolio/portfolio_v1/Smart_fashion/json_files/splash.json"
 
 ############################################################
 #  Dataset
@@ -109,15 +110,17 @@ def color_splash(image, mask):
     return splash
 
 
-def detect_and_color_splash(dataset, model, image_path=None, video_path=None):
+# def detect_and_color_splash(dataset, model, image_path=None, video_path=None):
+def detect_and_color_splash(dataset, model, image_path=None, video_path=None, image_dir=None):
     assert image_path or video_path
 
     # Image or video?
     if image_path:
         # Run model detection and generate the color splash effect
-        print("Running on {}".format(filename))
+        # print("Running on {}".format(filename))
         # Read image
-        image = skimage.io.imread(os.path.join(IMAGE_DIR,filename))
+        # image = skimage.io.imread(os.path.join(IMAGE_DIR,filename))
+        image = skimage.io.imread(os.path.join(image_dir, image_path))
         # Detect objects
         r = model.detect([image], verbose=1)[0]
 
@@ -127,7 +130,8 @@ def detect_and_color_splash(dataset, model, image_path=None, video_path=None):
         mask.shape
 
         for i in range(mask.shape[2]):
-            temp = skimage.io.imread(os.path.join(IMAGE_DIR,filename))
+            # temp = skimage.io.imread(os.path.join(IMAGE_DIR,filename))
+            temp = skimage.io.imread(os.path.join(image_dir, image_path))
             for j in range(temp.shape[2]):
                 temp[:, :, j] = temp[:, :, j] * mask[:, :, i]
 
