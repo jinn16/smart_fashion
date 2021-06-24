@@ -11,10 +11,10 @@ body, html {
 
 .inner {
     width: 1400px;
-    height: 1130px;
+    height: 1500px;
     background-color: #ffffff;
     margin: 0 auto;
-    margin-top: 4%;
+    margin-top: 2%;
     border-radius: 10px;
     box-shadow: 0 14px 18px 8px rgba(0,0,0,0.2), 0 20px 20px 0 rgba(0,0,0,0.2)    
 }
@@ -41,7 +41,6 @@ body, html {
         text-align: center;
         color: #575553;
         display: inline;
-        padding-left: 200px;
         position: relative;
         top: -30px;
 
@@ -74,10 +73,8 @@ body, html {
     height: 210px;
     margin: 0 auto;
     overflow: hidden;
-    /* z-index:10000; */
     margin-top: 10px;
 }
-
     .wrap .lists {
         display: flex;
         flex-direction: row;
@@ -106,8 +103,30 @@ body, html {
             top:42px;
             color: white;
             }
+    .below {
+        background-color: #e5e5e5;
+        padding: 0px;
+        height: 320px;
+    }
+    .below .lists div{
+        margin:10px;
+        height: 200px;
+        padding:0;
+        background-color:#e5e5e5;
+        border: dotted rgb(66, 66, 66);
 
-    #images_container {
+    }
+    .leftBtn-belows {
+        position: relative;
+        top: 100px;
+        float: left;
+    }
+    .rightBtn-belows {
+        position: relative;
+        top: 100px;
+        float: right;
+    }
+        #images_container {
         position: absolute;
         left: 0;
         top:15px;
@@ -238,7 +257,7 @@ body, html {
     display: flex;
     flex-direction:column;
     /* height: 300px; */
-    /* flex-wrap: nowrap; */
+    flex-wrap: nowrap;
 }
 .size01{
     float: left;
@@ -254,7 +273,8 @@ body, html {
 }
 
 .size03{
-    margin-left: 30%;
+    margin-left: 15%;
+    background-color: yellow;
 }
 
 .size03_1{
@@ -268,13 +288,18 @@ body, html {
 
 .size04 {
     float: left;
-    width: 20%;
-    margin-left: 5%;
+    width: 15%;
+    margin-left: 2%;
 }
 .size05 {
     float: left;
-    width: 20%;
-    margin-left: 6%;
+    width: 15%;
+    margin-left: 4%;
+}
+.size06 {
+    float: left;
+    width: 15%;
+    margin-left: 4%;
 }
 
 .btn01, .btn02, .btn03{
@@ -292,7 +317,7 @@ body, html {
     border-radius: 15px;
 	display: block;
 	margin: 15px auto;
-	max-width: 180px;
+	max-width: 120px;
 	padding: 5px 20px;
 }
 
@@ -362,6 +387,8 @@ body, html {
         height: 40px;
         text-align: center;
         line-height: 40px;
+        z-index:1000;
+
     }
     .first {
         background-color: #fca311;
@@ -370,15 +397,15 @@ body, html {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 1000px;
+    width: 1050px;
     margin: 0 auto;
-
+    z-index:10;
 }
 .line {
     position: relative;
     top: -35px;
-    left: 0px;
-    width: 290px;
+    left: -3px;
+    width: 240px;
     background-color: #e5e5e5;
     border: 1px solid #e5e5e5;
 }

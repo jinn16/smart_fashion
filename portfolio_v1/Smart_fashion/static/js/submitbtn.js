@@ -23,7 +23,7 @@ $(function submitFile() {
             processData: false,
             dataType: 'json',
             success: function (data) {
-                $('.items').html(data);
+                $('.lists').html(data);
             }
         }).done(function(data) {
 
@@ -141,3 +141,4 @@ function creatLines(n) {
 function viewVideo(n) {
     $('#secVideo').replaceWith("<video autoplay = autoplay id = 'secVideo' src = '" + scene_dir + video[n] + "' controls width=\"1300px\">");
 }
+
