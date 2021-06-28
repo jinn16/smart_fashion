@@ -3,12 +3,14 @@ $(function submitFile() {
         // 변수 및 id 값 선언
         loadingBar = document.getElementById('loadingBar')
         images_container = $('#images_container')
+        detect_container = $('#detect_container')
         container = $('.container')
         list = $('.lists>div')
         var form_data = new FormData($('#upload')[0]);
 
         loadingBar.style.display = 'block';
         images_container.empty();
+        detect_container.empty();
         event.preventDefault();
 
         list.animate({opacity:"1"},100);
@@ -30,14 +32,16 @@ $(function submitFile() {
             loadingBar.style.display = 'none';
 
             // json 파일 불러오기
-            file = data.dir_name
+            folder_name = data.folder_name
+
             scene = data.scene
             video = data.video
             start_time = data.start
             end_time = data.end
             frames = data.frame
+            seg_name = data.segmentation
 
-            scene_dir = file + '/'
+            scene_dir = 'static/scene/' + folder_name + '/'
 
             // image container에 사진 추가
             for (var i = 0; i < scene.length; i++) {
@@ -120,8 +124,7 @@ $(function submitFile() {
 });
 
 function add_image(n) {
-
-    var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\" title = \"hello\">" + `<div>scene number: ${n}<br>${start_time[n]} - ${end_time[n]}<\div>` + "</li>"
+    var path = "<li><img id = \"" + n +"\" src ='" + scene_dir + scene[n] + "' height = \"150px\">" + `<div>scene number: ${n}<br>${start_time[n]} - ${end_time[n]}<\div>` + "</li>"
     return path
 }
 

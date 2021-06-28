@@ -44,8 +44,8 @@ class DeepFashion2Config(Config):
 
     # splash_img_dir = "/home/ubuntu/datasets/deepfashion2/test/image"
     # splash_json_path = "/home/statest/smartfashion/json_files/splash.json"
-    splash_img_dir = "/home/chohj/Desktop/portfolio/portfolio_v1/Smart_fashion/test"
-    splash_json_path = "/home/chohj/Desktop/portfolio/portfolio_v1/Smart_fashion/json_files/splash.json"
+    splash_img_dir = "/home/chohj/portfolio/portfolio_v1/Smart_fashion/test"
+    splash_json_path = "/home/chohj/portfolio/portfolio_v1/Smart_fashion/json_files/splash.json"
 
 ############################################################
 #  Dataset
@@ -111,7 +111,7 @@ def color_splash(image, mask):
 
 
 # def detect_and_color_splash(dataset, model, image_path=None, video_path=None):
-def detect_and_color_splash(dataset, model, image_path=None, video_path=None, image_dir=None):
+def detect_and_color_splash(dataset, model, image_path=None, video_path=None, image_dir=None, folder_name = None):
     assert image_path or video_path
 
     # Image or video?
@@ -159,8 +159,8 @@ def detect_and_color_splash(dataset, model, image_path=None, video_path=None, im
 
 
         file_name = "segs_bbox_{:%Y%m%dT%H%M%S}".format(datetime.datetime.now())
-        visualize.save_image(image, file_name, r['rois'], r['masks'], r['class_ids'], r['scores'], dataset.class_names, scores_thresh=0.8, save_dir= 'test_output', mode=0)
-
+        visualize.save_image(image, file_name, r['rois'], r['masks'], r['class_ids'], r['scores'], dataset.class_names, scores_thresh=0.8, save_dir= 'static/segmentation/'+folder_name, mode=0)
+    return file_name
 if __name__ == "__main__":
     ROOT_DIR = os.path.abspath("/home/statest/smartfashion/")
     DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "log")

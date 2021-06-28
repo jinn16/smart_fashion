@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <script src="{{url_for('js_static', filename='submitbtn.js')}}"></script>
     <script src="{{url_for('js_static', filename='filebtn.js')}}"></script>
+    <script src="{{url_for('js_static', filename='detectbtn.js')}}"></script>
     <!-- <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/submitbtn.js"></script>
     <script src="../static/js/filebtn.js"></script> -->
@@ -51,7 +52,7 @@
                             <a class="btn01" id="submit" type="button">Success</a>
                         </div>
                         <div class="size06">
-                            <a class="btn01" id="submit" type="button">Detection</a>
+                            <a class="btn01" id="detect" type="button">Detection</a>
                         </div>
                     </form>
                 </div>
@@ -105,7 +106,6 @@
                     </div>
                     <div id="images_container">
                     </div>
-                    <div id ="timestamp"></div>
                 </div>
 
                 <!-- detected image -->
@@ -119,9 +119,8 @@
                         <div><h2></h2></div>
                         <div><h2></h2></div>
                     </div>
-                    <div id="images_container">
+                    <div id="detect_container">
                     </div>
-                    <div id ="timestamp"></div>
 
                 </div>
 
