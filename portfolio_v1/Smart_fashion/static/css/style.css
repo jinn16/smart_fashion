@@ -16,7 +16,7 @@ body, html {
     margin: 0 auto;
     margin-top: 2%;
     border-radius: 10px;
-    box-shadow: 0 14px 18px 8px rgba(0,0,0,0.2), 0 20px 20px 0 rgba(0,0,0,0.2)    
+    box-shadow: 0 14px 18px 8px rgba(0,0,0,0.2), 0 20px 20px 0 rgba(0,0,0,0.2)
 }
 
     /* =================================================main */
@@ -45,7 +45,7 @@ body, html {
         top: -30px;
 
     }
-    
+
 .controls {
     text-align: center;
     height: 800px;
@@ -146,6 +146,26 @@ body, html {
                 display: flex;
                 flex-direction: row;
             }
+        #detect_container {
+        position: absolute;
+        left: 0;
+        top:15px;
+        transition: left 0.5s ease-out;
+    }
+        #detect_container>li{
+            float: left;
+            margin-right: 15px;
+        }
+            #detect_container>li>img {
+                width: 310px;
+                border-radius: 15px;
+                z-index: 100;
+            }
+
+            .display {
+                display: flex;
+                flex-direction: row;
+            }
 
 .video_section {
     border:3px solid #6d6875;
@@ -227,14 +247,14 @@ body, html {
 }
 
     /* =================================================progress bar */
-    
+
     .loader {
     position: absolute;
     top: 45%; /* location needs to be adjusted */
     left: 46%; /* location needs to be adjusted */
     margin-left: -80px;
     margin-top: -80px;
-    border: 16px solid lightgray; 
+    border: 16px solid lightgray;
     border-top: 16px solid #fca311;
     border-radius: 50%;
     width: 80px;
@@ -269,7 +289,7 @@ body, html {
 .size02{
     float: left;
     margin-left: -3%;
-    
+
 }
 
 .size03{
@@ -278,12 +298,12 @@ body, html {
 }
 
 .size03_1{
-    float: left; 
+    float: left;
 }
 
 .size03_2{
     float: left;
-    width: 10%; 
+    width: 10%;
 }
 
 .size04 {

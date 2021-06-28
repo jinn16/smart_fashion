@@ -117,16 +117,18 @@ def object_segmentation(file_list_py, scene_dir, folder_name):
     dataset_splash.prepare()
     print("Images: {}\nClasses: {}".format(len(dataset_splash.image_ids), dataset_splash.class_names))
 
-    seg_name = []
+    seg_name_list = []
+    captions_list = []
     for filename in file_list_py:
         t1 = time.time()
         img = cv2.imread(os.path.join(scene_dir, filename))
 
-        seg_name.append(
-            detect_and_color_splash(dataset_splash, model, image_path = filename, video_path = None, image_dir = scene_dir,
-                                    folder_name = folder_name))
+        seg_name, captions = detect_and_color_splash(dataset_splash, model, image_path = filename, video_path = None, image_dir = scene_dir,
+                                    folder_name = folder_name)
+        seg_name_list.append(seg_name)
+        captions_list.append(captions)
         print("Each iteration elapsed time : {}s".format(time.time() - t1))
-    return seg_name
+    return seg_name_list, captions_list
 
 @app.context_processor
 def override_url_for():
@@ -187,8 +189,8 @@ def upldfile():
 
 @app.route('/segajax', methods=['POST'])
 def segmetation():
-    seg_name = object_segmentation(file_list_py, scene_dir, folder_name)
-    return jsonify(segmentation = seg_name, folder_name = folder_name, scene = file_list_py)
+    seg_name, captions = object_segmentation(file_list_py, scene_dir, folder_name)
+    return jsonify(segmentation = seg_name, folder_name = folder_name, scene = file_list_py, captions = captions)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

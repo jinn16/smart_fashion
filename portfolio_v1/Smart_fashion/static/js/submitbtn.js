@@ -97,10 +97,10 @@ $(function submitFile() {
                         viewVideo(id);
                         item.scrollIntoView({block:'center'});
                     },
-                    mouseover: function(e) {
-                        var id = e.target.getAttribute('id')
-                        document.getElementById(id).setAttribute('title', `Scene Number: ${id}` + `\n`+  start_time[id]+ '-' + end_time[id]);
-                    }
+                    // mouseover: function(e) {
+                    //     var id = e.target.getAttribute('id')
+                    //     document.getElementById(id).setAttribute('title', `Scene Number: ${id}` + `\n`+  start_time[id]+ '-' + end_time[id]);
+                    // }
                 })
             })
 

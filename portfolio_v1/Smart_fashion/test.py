@@ -157,10 +157,9 @@ def detect_and_color_splash(dataset, model, image_path=None, video_path=None, im
                     for c, s in zip(detections[:, 4], detections[:, 5])]
         print(captions)
 
-
         file_name = "segs_bbox_{:%Y%m%dT%H%M%S}".format(datetime.datetime.now())
         visualize.save_image(image, file_name, r['rois'], r['masks'], r['class_ids'], r['scores'], dataset.class_names, scores_thresh=0.8, save_dir= 'static/segmentation/'+folder_name, mode=0)
-    return file_name
+    return file_name, captions
 if __name__ == "__main__":
     ROOT_DIR = os.path.abspath("/home/statest/smartfashion/")
     DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "log")
