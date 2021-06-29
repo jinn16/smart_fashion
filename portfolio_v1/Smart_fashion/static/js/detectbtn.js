@@ -1,7 +1,11 @@
 $(function () {
     $('#detect').click(function() {
+        loadingBar = document.getElementById('loadingBar')
         detect_container = $('#detect_container')
+        loadingBar.style.display = 'block';
         detect_container.empty();
+        $('.fourth').css("backgroundColor","#e5e5e5");
+
         $.ajax({
             type: 'POST',
             url: '/segajax',
@@ -10,6 +14,8 @@ $(function () {
             processData: false,
             dataType: 'json'
         }).done(function(data) {
+            loadingBar.style.display = 'none';
+
             seg_name = data.segmentation
             folder_name = data.folder_name
             scene = data.scene
@@ -56,6 +62,11 @@ $(function () {
                     moveSlide(slideCount - 4);
                 }
             });
+            $(detect_container).click(function(e){
+                var id = e.target.getAttribute('id')
+                $('#secVideo').replaceWith("<img id = 'secVideo' src = '" + seg_dir + seg_name[id] + ".jpg' width=\"1300px\">");
+            })
+            $('.fifth').css("backgroundColor","#fca311");
 
         })
 
