@@ -75,10 +75,10 @@ $(function () {
     })
 })
 function add(n, cap) {
-    // var path = "<li><img id = \"" + n +"\" src ='" + seg_dir + seg_name[n] + ".jpg' height = \"150px\" alt = 'no instances in image''>" + `<div width = 310px>${cap}<\div>` + "</li>"
-    var path = `<li><img id = ${n} src = ${seg_dir}${seg_name[n]}.jpg height = 150px onError="this.src='${scene_dir}${scene[n]}'">
-                <div>${cap}<\div>
-                <\li>\
-                `
+    var path = "<li><img id = \"" + n +"\" src ='" + seg_dir + seg_name[n] + ".jpg' height = \"150px\" onError = \"this.src='"+scene_dir+scene[n]+"'\">" + `<div width = 310px>${cap}<\div>` + "</li>"
+    // var path = `<li><img id = ${n} src = ${seg_dir}${seg_name[n]}.jpg height = 150px onError="this.src='${scene_dir}${scene[n]}'">
+    //             <div>${cap}<\div>
+    //             <\li>\
+    //             `
     return path
 }
