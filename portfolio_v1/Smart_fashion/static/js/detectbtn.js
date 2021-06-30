@@ -21,6 +21,7 @@ $(function () {
             scene = data.scene
             captions = data.captions
 
+            scene_dir = 'static/scene/' + folder_name + '/'
             seg_dir = 'static/segmentation/' + folder_name + '/'
 
             for (var i = 0; i < scene.length; i++) {
@@ -62,6 +63,7 @@ $(function () {
                     moveSlide(slideCount - 4);
                 }
             });
+
             $(detect_container).click(function(e){
                 var id = e.target.getAttribute('id')
                 $('#secVideo').replaceWith("<img id = 'secVideo' src = '" + seg_dir + seg_name[id] + ".jpg' width=\"1300px\">");
@@ -73,6 +75,10 @@ $(function () {
     })
 })
 function add(n, cap) {
-    var path = "<li><img id = \"" + n +"\" src ='" + seg_dir + seg_name[n] + ".jpg' height = \"150px\">" + `<div width = 310px>${cap}<\div>` + "</li>"
+    // var path = "<li><img id = \"" + n +"\" src ='" + seg_dir + seg_name[n] + ".jpg' height = \"150px\" alt = 'no instances in image''>" + `<div width = 310px>${cap}<\div>` + "</li>"
+    var path = `<li><img id = ${n} src = ${seg_dir}${seg_name[n]}.jpg height = 150px onError="this.src='${scene_dir}${scene[n]}'">
+                <div>${cap}<\div>
+                <\li>\
+                `
     return path
 }

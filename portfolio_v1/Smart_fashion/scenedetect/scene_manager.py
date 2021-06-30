@@ -332,7 +332,6 @@ def save_images(scene_list, video_manager, num_images=3, frame_margin=1,
             total=len(scene_list) * num_images,
             unit='images',
             dynamic_ncols=True)
-
     filename_template = Template(image_name_template)
 
     scene_num_format = '%0'

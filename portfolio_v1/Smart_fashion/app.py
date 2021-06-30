@@ -2,6 +2,7 @@ from flask import (Flask, request, render_template, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 import os, random, string, time, cv2, datetime
 import shutil
+from scenedetect.frame_timecode import FrameTimecode
 from scenedetect import VideoManager, SceneManager, StatsManager
 from scenedetect.detectors import ContentDetector
 from scenedetect.scene_manager import save_images
@@ -40,11 +41,11 @@ def organize_folder():
     return scene_dir, random_name
 
 def pyscenedetect(file, threshold, name):
+    scene_dir, folder_name = organize_folder()
     scene_list = list(0 for i in range(0, 100))
+
     while len(scene_list) > 20:
         scene_list = [None]
-
-        scene_dir, folder_name = organize_folder()
 
         video_path = os.path.join(app.config['UPLOAD_FOLDER'], file)
         video_manager = VideoManager([video_path])
@@ -56,6 +57,9 @@ def pyscenedetect(file, threshold, name):
         scene_manager.detect_scenes(frame_source = video_manager)
 
         scene_list = scene_manager.get_scene_list()
+
+        total_frames = scene_list[-1][1].get_frames() - scene_list[0][0].get_frames()
+        print("hellooooooo", total_frames)
 
         if 20 < len(scene_list) <= 30:
             threshold = threshold + 10
@@ -88,9 +92,9 @@ def pyscenedetect(file, threshold, name):
             end_time.append(end.get_timecode())
 
             for i, (start, end) in enumerate(scene_list):
-                duration = end - start
-                duration.get_frames()
-                frames.append(duration.get_frames())
+                # duration = end - start
+                # frames.append(duration.get_frames())
+                frames.append(start.get_frames())
 
     return scene_dir, folder_name, start_time, end_time, frames
 
@@ -190,6 +194,7 @@ def upldfile():
 @app.route('/segajax', methods=['POST'])
 def segmetation():
     seg_name, captions = object_segmentation(file_list_py, scene_dir, folder_name)
+    print(file_list_py, seg_name)
     return jsonify(segmentation = seg_name, folder_name = folder_name, scene = file_list_py, captions = captions)
 
 if __name__ == '__main__':

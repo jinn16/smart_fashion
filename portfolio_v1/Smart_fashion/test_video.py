@@ -37,8 +37,8 @@ class DeepFashion2Config(Config):
 
     USE_MINI_MASK = True
 
-    splash_img_dir = "/home1/Dataset/Deepfashion2/train/image"
-    splash_json_path = "/home/jaehwang/workspace/lincon/gitref/match_rcnn/json_files/splash.json"
+    splash_img_dir = "/home/chohj/portfolio/portfolio_v1/Smart_fashion/test"
+    splash_json_path = "/home/chohj/portfolio/portfolio_v1/Smart_fashion/json_files/splash.json"
 
 
 ############################################################
@@ -188,7 +188,7 @@ def detect_and_color_splash(dataset, model, image_path=None, video_path=None):
     print("Saved to ", file_name)
 
 if __name__ == "__main__":
-    ROOT_DIR = os.path.abspath("/home/jaehwang/workspace/lincon/gitref/match_rcnn/")
+    ROOT_DIR = os.path.abspath("/home/chohj/portfolio/portfolio_v1/Smart_fashion/")
     DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "log")
     COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "weights/mask_rcnn_coco.h5")
 

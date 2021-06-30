@@ -67,12 +67,10 @@ $(function submitFile() {
                 currentIdex = 0,
                 slideCount = slide.length + 1,
                 slides.style.width = (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
-
             function moveSlide(num) {
                 slides.style.left = - num * (slideWidth + slideMargin) + 'px';
                 currentIdex = num;
             }
-
             right.addEventListener('click', function() {
                 if(currentIdex < slideCount - 3) {
                     moveSlide(currentIdex + 1);
@@ -88,21 +86,13 @@ $(function submitFile() {
                 }
             });
 
-            // image container 관련 이벤트
-            $(function() {
-                images_container.bind({
-                    click: function(e) {
-                        var id = e.target.getAttribute('id')
-                        const item = creatLines(id);
-                        viewVideo(id);
-                        item.scrollIntoView({block:'center'});
-                    },
-                    // mouseover: function(e) {
-                    //     var id = e.target.getAttribute('id')
-                    //     document.getElementById(id).setAttribute('title', `Scene Number: ${id}` + `\n`+  start_time[id]+ '-' + end_time[id]);
-                    // }
-                })
-            })
+            images_container.click(function(e) {
+                var id = e.target.getAttribute('id')
+                const item = creatLines(id);
+                viewVideo(id);
+                item.scrollIntoView({block:'center'});
+
+            });
 
             const items = document.querySelector('.items');
             items.addEventListener('click', event=> {
