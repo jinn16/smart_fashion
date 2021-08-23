@@ -66,7 +66,7 @@ $(function () {
 
             $(detect_container).click(function(e){
                 var id = e.target.getAttribute('id')
-                $('#secVideo').replaceWith("<img id = 'secVideo' src = '" + seg_dir + seg_name[id] + ".jpg' width=\"1300px\">");
+                $('#secVideo').replaceWith("<img id = 'secVideo' src = '" + seg_dir + seg_name[id] + ".jpg' width=\"1300px\" onError = \"this.src='"+scene_dir+scene[id]+"'\">");
             })
             $('.fifth').css("backgroundColor","#fca311");
 

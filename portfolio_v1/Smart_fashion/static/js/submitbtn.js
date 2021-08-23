@@ -93,7 +93,12 @@ $(function submitFile() {
                 item.scrollIntoView({block:'center'});
 
             });
-
+            $(document).ready(function(){
+                $("#secVideo").on(
+                    var video = document
+                    }
+                )
+            })
             const items = document.querySelector('.items');
             items.addEventListener('click', event=> {
                 var el = event.target.dataset.id
